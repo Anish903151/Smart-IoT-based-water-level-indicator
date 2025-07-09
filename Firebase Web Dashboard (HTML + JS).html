@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Water Level Monitor</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <h2>Live Water Level Monitor</h2>
+  <div id="level" style="font-size: 48px;">Loading...</div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "Your_API_Key",
+      authDomain: "your-project-id.firebaseapp.com",
+      databaseURL: "https://your-project-id.firebaseio.com",
+      projectId: "your-project-id",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    db.ref("/water_level").on("value", (snapshot) => {
+      const level = snapshot.val();
+      document.getElementById("level").innerText = level + "%";
+    });
+  </script>
+</body>
+</html>
